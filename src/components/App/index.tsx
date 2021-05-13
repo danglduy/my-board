@@ -1,22 +1,15 @@
-import React from 'react';
-import { Props } from './types';
+import Todos from '../Todos';
+import { Helmet } from 'react-helmet';
 import { withConnect } from './withConnect';
+import { Props } from './types';
 
-const App = ({ title, text, setTitle, setText }: Props) => {
-  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTitle(e.target.value);
-  };
-
-  const handleTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setText(e.target.value);
-  };
-
+const App = ({ title }: Props) => {
   return (
     <>
-      <div>{title}</div>
-      <input type="text" onChange={handleTitleChange} />
-      <span>{text}</span>
-      <input type="text" onChange={handleTextChange} />
+      <Helmet>
+        <title>{title}</title>
+      </Helmet>
+      <Todos />
     </>
   );
 };

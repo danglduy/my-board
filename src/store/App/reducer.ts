@@ -1,15 +1,13 @@
 import { Reducer } from 'redux';
 import { Action } from 'store/types';
-import { SET_TITLE, SET_TEXT } from './actionTypes';
+import { SET_TITLE } from './actionTypes';
 
 export interface AppState {
   readonly title: string;
-  readonly text: string;
 }
 
 export const initialState = {
-  title: '',
-  text: '',
+  title: 'My Todo',
 };
 
 export const appReducer: Reducer<AppState, Action> = (
@@ -19,9 +17,6 @@ export const appReducer: Reducer<AppState, Action> = (
   switch (action.type) {
     case SET_TITLE: {
       return { ...state, title: action.title };
-    }
-    case SET_TEXT: {
-      return { ...state, text: action.text };
     }
     default:
       return state;
