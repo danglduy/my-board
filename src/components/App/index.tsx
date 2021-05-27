@@ -1,4 +1,4 @@
-import Todos from '../Todos';
+import Board from '../Board';
 import { Helmet } from 'react-helmet';
 import { withConnect } from './withConnect';
 import { Props } from './types';
@@ -9,7 +9,7 @@ const App = ({ title }: Props) => {
       <Helmet>
         <title>{title}</title>
       </Helmet>
-      <Todos />
+      <Board />
     </>
   );
 };

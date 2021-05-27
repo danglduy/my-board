@@ -1,5 +1,5 @@
 import { AppState, AppAction } from 'store/App/types';
-import { TodosState, TodosAction } from 'store/Todos/types';
+import { BoardState, BoardAction } from 'store/Board/types';
 import {
   MapStateToProps as _MapStateToProps,
   MapDispatchToProps as _MapDispatchToProps,
@@ -7,10 +7,10 @@ import {
 
 export interface State {
   readonly app: AppState;
-  readonly todos: TodosState;
+  readonly board: BoardState;
 }
 
-export type Action = AppAction | TodosAction;
+export type Action = AppAction | BoardAction;
 
 export type MapStateToProps<StateProps = object, OwnProps = object> =
   _MapStateToProps<StateProps, OwnProps, State>;

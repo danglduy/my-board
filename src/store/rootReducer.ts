@@ -2,11 +2,11 @@ import { combineReducers, Reducer } from 'redux';
 
 import { State, Action } from 'store/types';
 import { appReducer } from './App/reducer';
-import { todosReducer } from './Todos/reducer';
+import { boardReducer } from './Board/reducer';
 
 const reducer: Reducer<State, Action> = combineReducers({
   app: appReducer,
-  todos: todosReducer,
+  board: boardReducer,
 });
 
 export default reducer;
