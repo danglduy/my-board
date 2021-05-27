@@ -1,7 +1,8 @@
 import styled from '@emotion/styled';
+import { withConnect } from './withConnect';
 import { Props } from './types';
 
-const TaskItem = ({ task, listId, updateTask, removeTask }: Props) => {
+const TaskItem = ({ updateTask, removeTask, task, listId }: Props) => {
   const handleItemClick = () => {
     updateTask(listId, { ...task });
   };
@@ -24,4 +25,4 @@ const TaskItem = ({ task, listId, updateTask, removeTask }: Props) => {
   );
 };
 
-export default TaskItem;
+export default withConnect(TaskItem);
