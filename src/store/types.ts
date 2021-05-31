@@ -1,5 +1,5 @@
-import { AppState, AppAction } from 'store/App/types';
-import { BoardState, BoardAction } from 'store/Board/types';
+import { AppState } from 'store/App/reducer';
+import { BoardState } from 'store/Board/reducer';
 import {
   MapStateToProps as _MapStateToProps,
   MapDispatchToProps as _MapDispatchToProps,
@@ -9,8 +9,6 @@ export interface State {
   readonly app: AppState;
   readonly board: BoardState;
 }
-
-export type Action = AppAction | BoardAction;
 
 export type MapStateToProps<StateProps = object, OwnProps = object> =
   _MapStateToProps<StateProps, OwnProps, State>;

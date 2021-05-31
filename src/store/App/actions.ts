@@ -1,8 +1,4 @@
 import { SET_TITLE } from './actionTypes';
+import { createAction } from '@reduxjs/toolkit';
 
-export const setTitle = (title: string) => ({
-  type: SET_TITLE,
-  title,
-});
-
-export type AppAction = ReturnType<typeof setTitle>;
+export const setTitle = createAction<{ title: string }>(SET_TITLE);

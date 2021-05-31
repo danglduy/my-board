@@ -1,38 +1,15 @@
+import { createAction } from '@reduxjs/toolkit';
 import { DropResult } from 'react-beautiful-dnd';
 import { UPDATE_TASK, ADD_TASK, REMOVE_TASK, ON_DRAG_END } from './actionTypes';
 import { Task } from './reducer';
 
-export const updateTask = (listId: string, task: Task) => ({
-  type: UPDATE_TASK,
-  payload: {
-    listId,
-    task,
-  },
-});
+export const updateTask =
+  createAction<{ listId: string; task: Task }>(UPDATE_TASK);
 
-export const addTask = (listId: string, content: string) => ({
-  type: ADD_TASK,
-  payload: {
-    listId,
-    content,
-  },
-});
+export const addTask =
+  createAction<{ listId: string; content: string }>(ADD_TASK);
 
-export const removeTask = (listId: string, taskId: string) => ({
-  type: REMOVE_TASK,
-  payload: {
-    listId,
-    taskId,
-  },
-});
+export const removeTask =
+  createAction<{ listId: string; taskId: string }>(REMOVE_TASK);
 
-export const onDragEnd = (result: DropResult) => ({
-  type: ON_DRAG_END,
-  payload: { result },
-});
-
-export type BoardAction =
-  | ReturnType<typeof updateTask>
-  | ReturnType<typeof addTask>
-  | ReturnType<typeof removeTask>
-  | ReturnType<typeof onDragEnd>;
+export const onDragEnd = createAction<{ result: DropResult }>(ON_DRAG_END);

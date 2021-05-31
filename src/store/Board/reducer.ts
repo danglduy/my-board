@@ -1,9 +1,8 @@
 import { DropResult } from 'react-beautiful-dnd';
-import { Reducer } from 'redux';
-import { produce, Draft } from 'immer';
-import { Action } from 'store/types';
+import { createReducer } from '@reduxjs/toolkit';
+import { Draft } from 'immer';
 import { v4 as uuidv4 } from 'uuid';
-import { ADD_TASK, REMOVE_TASK, UPDATE_TASK, ON_DRAG_END } from './actionTypes';
+import { addTask, onDragEnd, removeTask, updateTask } from './actions';
 
 const reorderItems = <T extends Task | List>(
   items: Array<T>,
@@ -14,7 +13,7 @@ const reorderItems = <T extends Task | List>(
   items.splice(destinationIndex, 0, removed);
 };
 
-const handleDragEnd = (draft: Draft<BoardState>, result: DropResult): void => {
+const handleDragEnd = (state: Draft<BoardState>, result: DropResult): void => {
   const { destination, source, type } = result;
 
   if (!destination) {
@@ -31,13 +30,13 @@ const handleDragEnd = (draft: Draft<BoardState>, result: DropResult): void => {
 
   // Dragging columns
   if (type === 'column') {
-    reorderItems(draft.lists, source.index, destination.index);
+    reorderItems(state.lists, source.index, destination.index);
     return;
   }
 
   // Dragging items within the same column
   if (source.droppableId === destination.droppableId) {
-    const resultList = draft.lists.find(
+    const resultList = state.lists.find(
       (list) => list._id === source.droppableId
     );
 
@@ -45,7 +44,7 @@ const handleDragEnd = (draft: Draft<BoardState>, result: DropResult): void => {
       return;
     }
 
-    const list = draft.lists.find((list) => list._id === source.droppableId);
+    const list = state.lists.find((list) => list._id === source.droppableId);
     if (!list) {
       return;
     }
@@ -55,8 +54,8 @@ const handleDragEnd = (draft: Draft<BoardState>, result: DropResult): void => {
   }
 
   // Dragging items across columns
-  const startList = draft.lists.find((list) => list._id === source.droppableId);
-  const destinationList = draft.lists.find(
+  const startList = state.lists.find((list) => list._id === source.droppableId);
+  const destinationList = state.lists.find(
     (list) => list._id === destination.droppableId
   );
 
@@ -128,74 +127,61 @@ export const initialState: BoardState = {
   ],
 };
 
-export const boardReducer: Reducer<BoardState, Action> = produce(
-  (draft: Draft<BoardState>, action) => {
-    switch (action.type) {
-      case UPDATE_TASK: {
-        const list = draft.lists.find(
-          (list) => list._id === action.payload.listId
-        );
+export const boardReducer = createReducer(initialState, (builder) => {
+  builder
+    .addCase(updateTask, (state, action) => {
+      const list = state.lists.find(
+        (list) => list._id === action.payload.listId
+      );
 
-        if (!list) {
-          return;
-        }
-
-        let task = list.tasks.find(
-          (task) => task._id === action.payload.task._id
-        );
-
-        if (!task) {
-          return;
-        }
-
-        task = action.payload.task;
-        break;
-      }
-
-      case ADD_TASK: {
-        const list = draft.lists.find(
-          (list) => list._id === action.payload.listId
-        );
-
-        if (!list) {
-          return;
-        }
-
-        list.tasks.push({
-          _id: uuidv4(),
-          content: action.payload.content,
-        });
-
-        break;
-      }
-      case REMOVE_TASK: {
-        const list = draft.lists.find(
-          (list) => list._id === action.payload.listId
-        );
-
-        if (!list) {
-          return;
-        }
-
-        const taskIndex = list.tasks.findIndex(
-          (task) => task._id === action.payload.taskId
-        );
-
-        if (taskIndex === -1) {
-          return;
-        }
-
-        list.tasks.splice(taskIndex, 1);
-        break;
-      }
-
-      case ON_DRAG_END: {
-        return handleDragEnd(draft, action.payload.result);
-      }
-
-      default:
+      if (!list) {
         return;
-    }
-  },
-  initialState
-);
+      }
+
+      let task = list.tasks.find(
+        (task) => task._id === action.payload.task._id
+      );
+
+      if (!task) {
+        return;
+      }
+
+      task = action.payload.task;
+    })
+    .addCase(addTask, (state, action) => {
+      const list = state.lists.find(
+        (list) => list._id === action.payload.listId
+      );
+
+      if (!list) {
+        return;
+      }
+
+      list.tasks.push({
+        _id: uuidv4(),
+        content: action.payload.content,
+      });
+    })
+    .addCase(removeTask, (state, action) => {
+      const list = state.lists.find(
+        (list) => list._id === action.payload.listId
+      );
+
+      if (!list) {
+        return;
+      }
+
+      const taskIndex = list.tasks.findIndex(
+        (task) => task._id === action.payload.taskId
+      );
+
+      if (taskIndex === -1) {
+        return;
+      }
+
+      list.tasks.splice(taskIndex, 1);
+    })
+    .addCase(onDragEnd, (state, action) => {
+      handleDragEnd(state, action.payload.result);
+    });
+});
