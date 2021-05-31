@@ -3,7 +3,7 @@ import {
   DraggableProvidedDraggableProps,
   DraggableProvidedDragHandleProps,
 } from 'react-beautiful-dnd';
-import { List } from 'store/Board/reducer';
+import { List } from 'store/Board/slice';
 
 export interface Props {
   readonly key: string;

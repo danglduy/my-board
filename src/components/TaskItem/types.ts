@@ -1,5 +1,5 @@
 import React from 'react';
-import { Task } from 'store/Board/reducer';
+import { Task } from 'store/Board/slice';
 
 export interface StateProps {}
 

@@ -2,14 +2,14 @@ import { connect } from 'react-redux';
 import { AnyAction, Dispatch } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import { DropResult } from 'react-beautiful-dnd';
-import { Task } from 'store/Board/reducer';
-import { selectLists } from 'store/Board/selectors';
 import {
+  Task,
   updateTask,
   addTask,
   removeTask,
   onDragEnd,
-} from 'store/Board/actions';
+} from 'store/Board/slice';
+import { selectLists } from 'store/Board/selectors';
 import { MapStateToProps, MapDispatchToProps } from 'store/types';
 import { StateProps, DispatchProps, OwnProps } from './types';
 

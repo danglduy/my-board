@@ -1,5 +1,5 @@
-import { AppState } from 'store/App/reducer';
-import { BoardState } from 'store/Board/reducer';
+import { AppState } from 'store/App/slice';
+import { BoardState } from 'store/Board/slice';
 import {
   MapStateToProps as _MapStateToProps,
   MapDispatchToProps as _MapDispatchToProps,

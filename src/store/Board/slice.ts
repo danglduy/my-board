@@ -1,8 +1,7 @@
 import { DropResult } from 'react-beautiful-dnd';
-import { createReducer } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Draft } from 'immer';
 import { v4 as uuidv4 } from 'uuid';
-import { addTask, onDragEnd, removeTask, updateTask } from './actions';
 
 const reorderItems = <T extends Task | List>(
   items: Array<T>,
@@ -127,9 +126,11 @@ export const initialState: BoardState = {
   ],
 };
 
-export const boardReducer = createReducer(initialState, (builder) => {
-  builder
-    .addCase(updateTask, (state, action) => {
+const boardSlice = createSlice({
+  name: 'board',
+  initialState,
+  reducers: {
+    updateTask(state, action: PayloadAction<{ listId: string; task: Task }>) {
       const list = state.lists.find(
         (list) => list._id === action.payload.listId
       );
@@ -147,8 +148,8 @@ export const boardReducer = createReducer(initialState, (builder) => {
       }
 
       task = action.payload.task;
-    })
-    .addCase(addTask, (state, action) => {
+    },
+    addTask(state, action: PayloadAction<{ listId: string; content: string }>) {
       const list = state.lists.find(
         (list) => list._id === action.payload.listId
       );
@@ -161,8 +162,11 @@ export const boardReducer = createReducer(initialState, (builder) => {
         _id: uuidv4(),
         content: action.payload.content,
       });
-    })
-    .addCase(removeTask, (state, action) => {
+    },
+    removeTask(
+      state,
+      action: PayloadAction<{ listId: string; taskId: string }>
+    ) {
       const list = state.lists.find(
         (list) => list._id === action.payload.listId
       );
@@ -180,8 +184,14 @@ export const boardReducer = createReducer(initialState, (builder) => {
       }
 
       list.tasks.splice(taskIndex, 1);
-    })
-    .addCase(onDragEnd, (state, action) => {
+    },
+    onDragEnd(state, action: PayloadAction<{ result: DropResult }>) {
       handleDragEnd(state, action.payload.result);
-    });
+    },
+  },
 });
+
+export const { updateTask, addTask, removeTask, onDragEnd } =
+  boardSlice.actions;
+
+export default boardSlice.reducer;

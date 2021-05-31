@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { AnyAction, Dispatch } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import { selectTitle } from 'store/App/selectors';
-import { setTitle } from 'store/App/actions';
+import { setTitle } from 'store/App/slice';
 import { MapStateToProps, MapDispatchToProps } from 'store/types';
 import { StateProps, DispatchProps, OwnProps } from './types';
 

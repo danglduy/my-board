@@ -1,7 +1,6 @@
 import { connect } from 'react-redux';
 import { AnyAction, Dispatch } from 'redux';
-import { Task } from 'store/Board/reducer';
-import { updateTask, removeTask } from 'store/Board/actions';
+import { Task, updateTask, removeTask } from 'store/Board/slice';
 import { MapDispatchToProps } from 'store/types';
 import { DispatchProps, OwnProps } from './types';
 

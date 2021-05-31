@@ -1,5 +1,5 @@
 import { DropResult } from 'react-beautiful-dnd';
-import { List, Task } from 'store/Board/reducer';
+import { List, Task } from 'store/Board/slice';
 
 export interface StateProps {
   readonly lists: List[];
