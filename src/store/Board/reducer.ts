@@ -21,6 +21,7 @@ const handleDragEnd = (draft: Draft<BoardState>, result: DropResult): void => {
     return;
   }
 
+  // Dragging item but position is not changed
   if (
     destination.droppableId === source.droppableId &&
     destination.index === source.index
@@ -28,11 +29,13 @@ const handleDragEnd = (draft: Draft<BoardState>, result: DropResult): void => {
     return;
   }
 
+  // Dragging columns
   if (type === 'column') {
     reorderItems(draft.lists, source.index, destination.index);
     return;
   }
 
+  // Dragging items within the same column
   if (source.droppableId === destination.droppableId) {
     const resultList = draft.lists.find(
       (list) => list._id === source.droppableId
@@ -51,6 +54,7 @@ const handleDragEnd = (draft: Draft<BoardState>, result: DropResult): void => {
     return;
   }
 
+  // Dragging items across columns
   const startList = draft.lists.find((list) => list._id === source.droppableId);
   const destinationList = draft.lists.find(
     (list) => list._id === destination.droppableId
