@@ -1,4 +1,4 @@
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { createStore } from 'redux';
 import './index.css';
 import App from './components/App';
@@ -8,11 +8,13 @@ import { Provider } from 'react-redux';
 
 const store = createStore(rootReducer);
 
-ReactDOM.render(
+const domNode = document.getElementById('root') as Element;
+const root = createRoot(domNode);
+
+root.render(
   <Provider store={store}>
     <App />
-  </Provider>,
-  document.getElementById('root')
+  </Provider>
 );
 
 // If you want your app to work offline and load faster, you can change

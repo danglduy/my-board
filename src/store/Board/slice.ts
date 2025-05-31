@@ -1,4 +1,4 @@
-import { DropResult } from 'react-beautiful-dnd';
+import { DropResult } from '@hello-pangea/dnd';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Draft } from 'immer';
 import { v4 as uuidv4 } from 'uuid';

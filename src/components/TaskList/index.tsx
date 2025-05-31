@@ -4,7 +4,7 @@ import {
   Droppable,
   DraggingStyle,
   NotDraggingStyle,
-} from 'react-beautiful-dnd';
+} from '@hello-pangea/dnd';
 import TaskItem from '../TaskItem';
 import { Props } from './types';
 

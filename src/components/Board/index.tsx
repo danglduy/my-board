@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
+import { DragDropContext, Draggable, Droppable } from '@hello-pangea/dnd';
 import { Props } from './types';
 import { withConnect } from './withConnect';
 import TaskList from '../TaskList';
@@ -21,7 +21,7 @@ const Board = ({ lists, onDragEnd }: Props) => {
                   {(provided) => (
                     <TaskList
                       innerRef={provided.innerRef}
-                      dragHandleProps={provided.dragHandleProps}
+                      dragHandleProps={provided.dragHandleProps || undefined}
                       draggableProps={provided.draggableProps}
                       key={list._id}
                       list={list}

@@ -1,4 +1,4 @@
-import { DropResult } from 'react-beautiful-dnd';
+import { DropResult } from '@hello-pangea/dnd';
 import { List, Task } from 'store/Board/slice';
 
 export interface StateProps {

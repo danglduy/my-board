@@ -2,7 +2,7 @@ import { LegacyRef } from 'react';
 import {
   DraggableProvidedDraggableProps,
   DraggableProvidedDragHandleProps,
-} from 'react-beautiful-dnd';
+} from '@hello-pangea/dnd';
 import { List } from 'store/Board/slice';
 
 export interface Props {

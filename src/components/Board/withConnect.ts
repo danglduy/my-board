@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { AnyAction, Dispatch } from 'redux';
 import { createStructuredSelector } from 'reselect';
-import { DropResult } from 'react-beautiful-dnd';
+import { DropResult } from '@hello-pangea/dnd';
 import {
   Task,
   updateTask,
